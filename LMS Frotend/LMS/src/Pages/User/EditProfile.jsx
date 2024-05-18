@@ -56,6 +56,7 @@ function EditProfile() {
     await dispatch(getUserdata());
     navigate("/user/profile");
   };
+  console.log("Console log");
 
   return (
     <HomeLayout>

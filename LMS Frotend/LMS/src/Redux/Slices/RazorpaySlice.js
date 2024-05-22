@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 import axiosInstance from "../../Helpers/axiosinstance";
-import { razorpay } from "../../../../../LMS Backend/Server/server";
+
 
 const initialState = {
   key: "",
@@ -15,6 +15,7 @@ const initialState = {
 export const getRazorPayId = createAsyncThunk("razorpay/getId", async () => {
   try {
     const response = await axiosInstance.get("/payments/razorpay-key");
+    console.log("frotend correct respnose",response.data);
     return response.data;
   } catch (error) {
     toast.error("Failed to load data");
@@ -31,7 +32,9 @@ export const verifyUserPayment = createAsyncThunk(
         razorpay_signature: data.razorpay_signature,
       });
       return response.data;
-    } catch (error) {}
+    } catch (error) {
+      toast.error("Failed to verify payment");
+    }
   }
 );
 
@@ -77,10 +80,13 @@ export const purchaseCourseBundle = createAsyncThunk(
   "/purchaseCourse",
   async () => {
     try {
+     
       const response = await axiosInstance.post("/payments/subscribe");
+      //subscribe
+      console.log("Frotend updated Response",response.data);
       return response.data;
     } catch (error) {
-      toast.error("Failed to purchase course");
+      toast.error("Failed to purchase course Chnage");
     }
   }
 );

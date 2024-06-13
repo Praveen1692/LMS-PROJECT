@@ -4,6 +4,7 @@ import AuthSliceReducer from "./Slices/AuthSlice.js";
 import CourseSliceReducer from "./Slices/CourseSlice.js";
 import RazorpaySlice from "./Slices/RazorpaySlice.js";
 import LecturesSlice from "./Slices/LecturesSlice.js";
+import StatSlice from "./Slices/StatSlice.js";
 
 const store = configureStore({
   //    Redux Toolkit Initalization
@@ -12,7 +13,8 @@ const store = configureStore({
     auth: AuthSliceReducer,
     course: CourseSliceReducer,
     razorpay: RazorpaySlice,
-    lecture:LecturesSlice
+    lecture:LecturesSlice,
+    stat:StatSlice
     
   }, //  root reducer (like in combineReducers
   devTools: true, //   enables Redux Devtools Extension

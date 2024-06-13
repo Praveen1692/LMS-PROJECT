@@ -20,25 +20,38 @@ export const getAllCourse = createAsyncThunk("/course/get", async () => {
   }
 });
 
+export const deleteCourse = createAsyncThunk("/course/get", async (id) => {
+  try {
+    const response = axiosInstance.delete(`/courses/${id}`);
+    toast.promise(response, {
+      loading: "Deleting Course Data....",
+      success: "Course Deleted Successfully",
+      error: "Failed To Delete The Course..",
+    });
+    return (await response).data.data;
+  } catch (error) {
+    toast.error(error?.response?.data?.message);
+  }
+});
+
 export const createNewCourse = createAsyncThunk(
   "/course/create",
   async (data) => {
     try {
       let formData = new FormData();
       formData.append("title", data.title);
-      formData.append("description",data.description)
+      formData.append("description", data.description);
       formData.append("createdBy", data.createdBy);
       formData.append("category", data.category);
       formData.append("thumbnail", data.thumbnail);
-      const response=axiosInstance.post('/course',formData);
-      console.log("Response",(await response).data.status);
+      const response = axiosInstance.post("/course", formData);
+      console.log("Response", (await response).data.status);
       toast.promise(response, {
         loading: "Creating Course....",
         success: "Course Created Successfully",
         error: "Failed To Create The Course..",
-        });
-        return (await response).data;
-      
+      });
+      return (await response).data;
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }

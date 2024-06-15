@@ -10,7 +10,7 @@ export const getAllCourse = createAsyncThunk("/course/get", async () => {
   try {
     const response = axiosInstance.get("/course");
     toast.promise(response, {
-      loading: "Loaing Course Data....",
+      loading: "Loading Course Data....",
       success: "Course Loaded Successfully",
       error: "Failed To Get The Courses..",
     });
@@ -20,9 +20,10 @@ export const getAllCourse = createAsyncThunk("/course/get", async () => {
   }
 });
 
-export const deleteCourse = createAsyncThunk("/course/get", async (id) => {
+export const deleteCourse = createAsyncThunk("/course/delete", async (id) => {
   try {
-    const response = axiosInstance.delete(`/courses/${id}`);
+    const response = axiosInstance.delete(`/course/${id}`);
+    console.log("frotend delete  course response",(await response).data);
     toast.promise(response, {
       loading: "Deleting Course Data....",
       success: "Course Deleted Successfully",

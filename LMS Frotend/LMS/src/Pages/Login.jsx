@@ -90,12 +90,22 @@ function Login() {
               value={loginData.password}
             />
           </div>
+
+
           <button
             type="submit"
             className="mt-2 w-full bg-[#3503fc] hover:bg-[#fc8c03] transition-all ease-in-out duration-300 rounded-sm px-2 py-2 font-semibold text-lg cursor-pointer"
           >
             Login account
           </button>
+
+          <Link to={"/forgetpassword"}>
+            <p className="text-center link text-accent cursor-pointer">
+              Forget Password
+            </p>
+          </Link>
+
+
           <p className="text-center">
             Donot have a account ?{" "}
             <Link to="/signup" className="link text-accent cursor-pointer ">

@@ -3,20 +3,27 @@ import toast from "react-hot-toast";
 import axiosInstance from "../../Helpers/axiosinstance";
 
 const initialState = {
-  lectures: [],
+  //lecture: [],
+  lectures: []
 };
 
 export const getCourseLecture = createAsyncThunk(
   "/course/lecture/get",
   async (cid) => {
     try {
-      const response = axiosInstance.get(`/courses/${cid}`);
+      const response = axiosInstance.get(`/course/${cid}`);
+      console.log("response data",(await response).data);
+     
       toast.promise(response, {
         loading: "Fectching Courses Lectures...",
         success: "Lectures Fetch Successfully",
         error: "Faild to load lectures...",
       });
       return (await response).data;
+      /*   client 
+      const response = await res;
+      return response.data;
+      */
     } catch (error) {
       toast.error(error?.response?.data?.message);
       console.log("SOmething wrong to  load lectures.....");
@@ -32,9 +39,9 @@ export const addCourseLecture = createAsyncThunk(
       formData.append("lecture", data.lecture);
       formData.append("title", data.title);
       formData.append("description", data.description);
-      console.log("this is from data ",formData);
+      console.log("this is from data ", formData);
       const response = axiosInstance.post(`/course/${data.id}`, formData);
-      console.log("LectireSlice update",response);
+      console.log("LectireSlice update", response);
       toast.promise(response, {
         loading: "Adding Courses Lecture...",
         success: "Lecture Added Successfully",
@@ -53,8 +60,9 @@ export const deleteCourseLecture = createAsyncThunk(
   async (data) => {
     try {
       const response = axiosInstance.delete(
-        `/courses?courseId=${data.courseId}&lectureId=${data.lectureId}`
+        `/course?courseId=${data.courseId}&lectureId=${data.lectureId}`
       );
+      console.log("response on delete lecture",response);
       toast.promise(response, {
         loading: "Deleting Courses Lecture...",
         success: "Lecture Deleting Successfully",
@@ -73,16 +81,18 @@ const lectureSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getCourseLecture.fulfilled,(state,action)=>{
+    builder
+      .addCase(getCourseLecture.fulfilled, (state, action) => {
+        //state.lectures = action?.payload;
+          state.lectures = action?.payload?.lectures; 
+      })
+
+      .addCase(addCourseLecture.fulfilled, (state, action) => {
         console.log(action);
-        state.lectures=action?.payload?.lectures;
-    })
-    .addCase(addCourseLecture.fulfilled,(state,action)=>{
-        console.log(action);
-       // state.lectures.push(action?.payload?.course?.lecture);//puch  ka function check krna hai
-        state.lectures=(action?.payload?.course?.lectures);
-    })
+        // state.lectures.push(action?.payload?.course?.lecture);//puch  ka function check krna hai
+        state.lectures = action?.payload?.course?.lectures;
+      });
   },
 });
-
+export const {} = lectureSlice.actions; // add kra hai 
 export default lectureSlice.reducer;

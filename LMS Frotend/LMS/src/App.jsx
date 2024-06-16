@@ -20,6 +20,11 @@ import CheckoutFail from "./Pages/Payments/CheckoutFail.jsx";
 import DisplayLectures from "./Pages/Dashboard/DisplayLectures.jsx";
 import AddLecture from "./Pages/Dashboard/AddLecture.jsx";
 import AdminDashboard from "./Pages/Dashboard/AdminDashboard.jsx";
+import ChangePassword from "./Pages/Password/ChangePassword.jsx";
+import ForgotPassword from "./Pages/Password/ForgotPassword.jsx";
+
+
+
 function App() {
   return (
     <>
@@ -29,6 +34,7 @@ function App() {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forgetpassword" element={<ForgotPassword />} />
           <Route path="/courses" element={<CourseList />} />
           <Route path="/contact" element={<Contact />} />-
           <Route path="/denied" element={<Denied />} />
@@ -51,6 +57,14 @@ function App() {
 
 
             <Route path="/course/displaylectures" element={<DisplayLectures/>}/>
+
+            <Route path="/changepassword" element={<ChangePassword/>} />
+            
+
+           
+
+           
+
 
            
           </Route>

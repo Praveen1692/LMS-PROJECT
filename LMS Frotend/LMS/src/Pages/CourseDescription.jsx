@@ -46,11 +46,12 @@ function CourseDescription() {
             </div>
           </div>
           <div className="space-y-2 text-xl">
-            <h1 className="text-3xl font-bold text-yellow-500 mb-5 text-center ">
+            <h1 className="text-3xl font-bold text-yellow-500 mb-5 text-center">
               {state?.title}
+             
             </h1>
             <p className="text-yellow-500">Course Description: </p>
-            <p>{state?.description}</p>
+            <p>{state?.description}</p> 
           </div>
         </div>
       </div>

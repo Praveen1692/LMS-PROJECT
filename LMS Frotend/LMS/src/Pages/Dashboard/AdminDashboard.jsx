@@ -21,7 +21,7 @@ import { deleteCourse, getAllCourse } from "../../Redux/Slices/CourseSlice";
 import { getStatsData } from "../../Redux/Slices/StatSlice";
 import { getPaymentRecord } from "../../Redux/Slices/RazorpaySlice";
 import { deleteCourseLecture } from "../../Redux/Slices/LecturesSlice";
-import { all } from "axios";
+
 import { BsCollectionPlayFill, BsTrash } from "react-icons/bs";
 ChartJS.register(
   ArcElement,
@@ -37,7 +37,7 @@ function AdminDashboard() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { allUsersCount, subscribedCount } = useSelector((state) => state.stat);
-  const { allPayments, finalMonths, monthliSalesRecord } = useSelector(
+  const { allPayments, monthliSalesRecord } = useSelector(
     (state) => state.razorpay
   );
 
@@ -86,7 +86,7 @@ function AdminDashboard() {
   async function onCourseDelete(id) {
     if (window.confirm("Are you sure you want to delete the course ?")) {
       const res = await dispatch(deleteCourse(id));
-      console.log("Res",res);
+      console.log("Res", res);
       if (res?.payload?.success) {
         await dispatch(getAllCourse());
       }
@@ -174,7 +174,7 @@ function AdminDashboard() {
           </div>
           <table className="table overflow-x-scroll">
             <thead>
-              <tr>
+              <tr className="text-2xl font-semibold text-neutral-100 bg-yellow-400">
                 <th>S No.</th>
                 <th>Course Title</th>
                 <th>Course Category</th>
@@ -218,7 +218,6 @@ function AdminDashboard() {
                       >
                         <BsCollectionPlayFill />
                       </button>
-
 
                       <button
                         className="bg-red-500 hover:bg-red-600 transition-all ease-in-out duration-300 text-xl py-2 px-4 rounded-md font-bold "

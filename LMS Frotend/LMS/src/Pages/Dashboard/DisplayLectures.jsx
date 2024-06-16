@@ -16,6 +16,7 @@ function DisplayLectures() {
   const { role } = useSelector((state) => state.auth);
   const [currentVideo, setCurrentVideo] = useState(0);
   async function onLectureDelete(courseId, lectureId) {
+    console.log("delete lecture called");
     console.log(courseId, lectureId);
     await dispatch(
       deleteCourseLecture({ courseId: courseId, lectureId: lectureId })
@@ -24,10 +25,22 @@ function DisplayLectures() {
   }
 
   useEffect(() => {
-    console.log(state);
+    console.log("State",state);
+    console.log("Role",role);
+   console.log("lectures change corect again  ",lectures);
+   
 
     if (!state) navigate("/courses");
     dispatch(getCourseLecture(state._id));
+    /*  
+     (async () => {
+      await dispatch(getCourseLecture(courseDetails._id)); itna he hai bs
+    })();
+
+    */
+
+
+
   }, []);
   return (
     <HomeLayout>

@@ -7,6 +7,101 @@ const initialState = {
   data: JSON.parse(localStorage.getItem("data")) || "{}", // User Data in JSON format
 };
 
+
+export const changePassword = createAsyncThunk(
+  "/auth/changePassword",
+  async (userPassword) => {
+    // /change-password
+    try {
+      let res = axiosInstance.post("/user/change-password", userPassword);
+      console.log("Change Password response",res);
+
+      await toast.promise(res, {
+        loading: "Loading...",
+        success: (data) => {
+          return data?.data?.message;
+        },
+        error: "Failed to change password",
+      });
+
+      // getting response resolved here
+      res = await res;
+      return res.data;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  }
+);
+
+
+// function to handle forget password
+export const forgetPassword = createAsyncThunk(
+  "auth/forgetPassword",
+  async (email) => {
+    try {
+      let res = axiosInstance.post("/user/reset", { email });
+      console.log("Clienst forgotpassword",res);
+
+      await toast.promise(res, {
+        loading: "Loading...",
+        success: (data) => {
+          return data?.data?.message;
+        },
+        error: "Failed to send verification email",
+      });
+
+      // getting response resolved here
+      res = await res;
+      return res.data;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  }
+);
+
+
+export const resetPassword = createAsyncThunk("/user/reset", async (data) => {
+  try {
+    let res = axiosInstance.post(`/user/reset/${data.resetToken}`, {
+      password: data.password,
+    });
+
+    toast.promise(res, {
+      loading: "Resetting...",
+      success: (data) => {
+        return data?.data?.message;
+      },
+      error: "Failed to reset password",
+    });
+    // getting response resolved here
+    res = await res;
+    return res.data;
+  } catch (error) {
+    toast.error(error?.response?.data?.message);
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const createAccount = createAsyncThunk("/auth/signup", async (data) => {
   try {
     const res = axiosInstance.post("user/register", data);
